@@ -28,9 +28,9 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export async function ambilDaftarPASGENAP() {
-  const refDokumen = collection(db, "absensi");
-  const kueri = query(refDokumen, orderBy("nama"));
-  const cuplikanKueri = await getDocs(kueri);
+ const  refDokumen = collection(db, "absensi");
+  const cuplikanKueri = query(refDokumen, orderBy("nama"));
+  const iu = await getDocs(kueri);
 
   let hasil = [];
   cuplikanKueri.forEach((dok) => {
@@ -56,9 +56,9 @@ export function formatAngka(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-export async function tambahAbsensi(tanggal, nis, nama, alamat, noTlpn, kelas, keterangan) {
+export async function tambahPASGENAP(tanggal, nis, nama, alamat, noTlpn, kelas, keterangan) {
   try {
-    const dokRef = await addDoc(collection(db, 'absensi'), {
+    const dokRef = await addDoc(collection(db, 'PASGENAP'), {
       tanggal: tanggal,
       nis: nis,
       nama: nama,
@@ -73,20 +73,20 @@ export async function tambahAbsensi(tanggal, nis, nama, alamat, noTlpn, kelas, k
   }
 }
 
-export async function hapusAbsensi(docId) {
-  await deleteDoc(doc(db, "absensi", docId));
+export async function hapusPASGENAP(docId) {
+  await deleteDoc(doc(db, "PASGENAP", docId));
 }
 
-export async function ubahPembeli(docId, nama, alamat, noTlpn) {
-  await updateDoc(doc(db, "pembeli", docId), {
+export async function ubahPAS(docId, nama, alamat, noTlpn) {
+  await updateDoc(doc(db, "PASGENAP", docId), {
     nama: nama,
     alamat: alamat,
     noTlpn: noTlpn
   });
 }
 
-export async function ambilPembeli(docId) {
-  const docRef = await doc(db, "pembeli", docId);
+export async function ambilPASGENAP(docId) {
+  const docRef = await doc(db, "PASGENAP", docId);
   const docSnap = await getDoc(docRef);
 
   return await docSnap.data();

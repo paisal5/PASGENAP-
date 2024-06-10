@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import {
   getFirestore,
   collection,
@@ -27,66 +27,54 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-export async function ambilDaftarPASGENAP() {
- const  refDokumen = collection(db, "absensi");
-  const cuplikanKueri = query(refDokumen, orderBy("nama"));
-  const iu = await getDocs(kueri);
+export async function ambilDaftarPembeli() {
+  const refDokumen = collection(db, "pembeli");
+  const kueri = query(refDokumen, orderBy("nama"));
+  const cuplikanKueri = await getDocs(kueri);
 
   let hasil = [];
   cuplikanKueri.forEach((dok) => {
     hasil.push({
       id: dok.id,
-      tanggal: dok.data().tanggal,
-      nis: dok.data().nis,
-      nama: dok.data().nama,
+     nama: dok.data().nama,
       alamat: dok.data().alamat,
       noTlpn: dok.data().noTlpn,
-      kelas: dok.data().kelas,
-      keterangan: dok.data().keterangan,
-      
     });
   });
-
-
-
+  
   return hasil;
 }
 
 export function formatAngka(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-export async function tambahPASGENAP(tanggal, nis, nama, alamat, noTlpn, kelas, keterangan) {
+export async function  tambahPembeli(nama, alamat, noTlpn) {
   try {
-    const dokRef = await addDoc(collection(db, 'PASGENAP'), {
-      tanggal: tanggal,
-      nis: nis,
+    const dokRef = await addDoc(collection(db, 'pembeli'),{
       nama: nama,
       alamat: alamat,
-      noTlpn: noTlpn,
-      kelas: kelas,
-      keterangan: keterangan
+      noTlpn: noTlpn
     });
-    console.log('berhasil menembah ' + dokRef.id);
+    console.log('Berhasil menambah pembeli' + dokRef.id);
   } catch (e) {
-    console.log('gagal menambah ' + e);
+    Console.log('Gagal menambah pembeli' + e);
   }
-}
 
-export async function hapusPASGENAP(docId) {
-  await deleteDoc(doc(db, "PASGENAP", docId));
 }
+export async function hapusPembeli(docId) {
+  await deleteDoc(doc(db, "pembeli", docId));
+} 
 
-export async function ubahPAS(docId, nama, alamat, noTlpn) {
-  await updateDoc(doc(db, "PASGENAP", docId), {
+export async function ubahPembeli(docId, nama, alamat, noTlpn) {
+  await updateDoc(doc(db, "pembeli", docId), {
     nama: nama,
     alamat: alamat,
     noTlpn: noTlpn
   });
 }
-
-export async function ambilPASGENAP(docId) {
-  const docRef = await doc(db, "PASGENAP", docId);
+export async function ambilPembeli(docId) {
+  const docRef = await doc(db, "pembeli", docId);
   const docSnap = await getDoc(docRef);
 
   return await docSnap.data();

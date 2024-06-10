@@ -24,6 +24,8 @@
         <th scope="col">nama</th>
         <th scope="col">alamat</th>
         <th scope="col">notlpn</th>
+        <th scope="col">kelas</th>
+        <th scope="col">keterangan</th>
       </tr>
     </thead>
     <tbody>
@@ -35,7 +37,7 @@
   </div>
 
 <div class="d-flex justify-content-center">
-  <button onclick="location.href='forum-data-penjual.html'" style="background-color: blue; color: white; border-radius: 10px;">Tambah data penjual</button>
+  <button onclick="location.href='forum-data-penjual.html'" style="background-color: blue; color: white; border-radius: 10px;">Tambah PASGENAP</button>
 </div>
 
   <style>
@@ -68,16 +70,16 @@
   </style>
 
   <script type="module">
-    import { ambilDaftarPenjual, formatAngka, hapusPenjual } from './main.js';
+    import { ambilDaftarPASGENAP, formatAngka, hapusPenjual } from './main.js';
 
     $(document).ready(async function() {
-      let elemenDaftar = $("#daftar-penjual > tbody");
-      let daftarPenjual = await ambilDaftarPenjual();
+      let elemenDaftar = $("#daftar-PASGENAP > tbody");
+      let daftarPASGENAP = await ambilDaftarPASGENAP();
       let nomor = 1;
 
 
 
-      daftarPenjual.forEach((data) => {
+      DaftarPASGENAP.forEach((data) => {
         elemenDaftar.append(
           '<tr>' +
           '<th>' + nomor + '</th>' +
@@ -96,12 +98,12 @@
       });
 
       $('.tombol-hapus').click(async function() {
-        await hapusPenjual($(this).attr('data'));
+        await hapusPASGENAP($(this).attr('data'));
         location.reload();
       })
 
       $('.link-ubah').click(async function() {
-        window.location.replace('ubah-penjual.html?docId=' + $(this).attr('data'));
+        window.location.replace('ubah-PASGENAP.html?docId=' + $(this).attr('data'));
       })
 
       $('#loader').hide();
